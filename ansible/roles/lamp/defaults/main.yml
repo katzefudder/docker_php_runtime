@@ -1,0 +1,25 @@
+---
+
+apache_conf_path: /etc/apache2
+apache_server_root: /etc/apache2
+apache_doc_root: /var/www/public
+apache_custom_log: /var/log/apache2/access.log combined
+apache_error_log: /var/log/apache2/error.log
+
+apache_server_name: "katzefudder.de"
+apache_server_alias: "katzefudder.de"
+
+mysql:
+  database: webshop
+  root_db_password: "{{ mysql_root_password }}"
+  hosts:
+    - "{{ ansible_hostname}}"
+    - 127.0.0.1
+    - ::1
+    - localhost
+
+mysql_users:
+  - name: webshop
+    host: "localhost"
+    priv: 'webshop.*:ALL'
+    password: "{{ mysql_user_password }}"

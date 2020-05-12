@@ -1,0 +1,18 @@
+---
+
+- debug: var=play_environment
+
+- name: include vault
+  include_vars: vault_{{ play_environment }}.yml
+
+- name: Include motto of the day
+  include: motd.yml
+
+- name: Include Apache
+  include: apache.yml
+
+- name: Include PHP
+  include: php.yml
+
+- name: Include MySQL
+  include: mysql.yml

@@ -1,0 +1,7 @@
+---
+
+- name: System update
+  hosts: all
+  roles:
+    - {role: system_update, apache_create_vhosts: true}
+  become: yes

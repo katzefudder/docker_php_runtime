@@ -1,0 +1,7 @@
+---
+
+- name: Install GitLab
+  hosts: all
+  roles:
+    - {role: lamp, apache_create_vhosts: true}
+  become: yes

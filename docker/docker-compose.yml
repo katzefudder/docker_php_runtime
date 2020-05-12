@@ -1,0 +1,49 @@
+version: "2"
+services:
+    frontend:
+        build: .
+        depends_on:
+            - database
+        links:
+            - "database:database"
+        ports:
+            - "80:80"
+        networks:
+            - php-net
+        volumes:
+            - ./../htdocs:/var/www:cached
+            - ./apache/vhost.txt:/etc/apache2/sites-enabled/docker-php.conf:cached
+            - ./php/xdebug.ini:/etc/php/7.2/mods-available/xdebug.ini:cached
+            - ./php/cli/php.ini:/etc/php/7.2/cli/php.ini:cached
+            - ./php/fpm/php.ini:/etc/php/7.2/fpm/php.ini:cached
+    database:
+        image: mysql/mysql-server:5.7.29
+        environment:
+            - MYSQL_DATABASE=docker
+            - MYSQL_USER=docker
+            - MYSQL_PASSWORD=password
+            - MYSQL_ROOT_PASSWORD=password
+            - MYSQL_ROOT_HOST=%
+        ports:
+            - "3306:3306"
+        networks:
+            - php-net
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            -   "8080:80"
+        networks:
+            - php-net
+        environment:
+            - "PMA_HOST=database"
+            - "PMA_USER=root"
+            - "PMA_PASSWORD=password"
+    mailhog:
+        image: mailhog/mailhog
+        ports:
+            - "1025:1025"
+            - "8025:8025"
+        networks:
+            - php-net
+networks:
+  php-net:

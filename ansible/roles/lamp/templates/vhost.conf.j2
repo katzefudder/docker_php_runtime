@@ -1,0 +1,19 @@
+#{{ ansible_managed }}
+
+<VirtualHost *:80>
+    ServerName {{ apache_server_name }}
+    ServerAlias {{ apache_server_alias }}
+    DocumentRoot {{ apache_doc_root }}
+
+    <Directory {{ apache_doc_root }}>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Order allow,deny
+        allow from all
+        Require all granted
+    </Directory>
+
+    ErrorLog {{ apache_error_log }}
+    CustomLog {{ apache_custom_log }}
+
+</VirtualHost>

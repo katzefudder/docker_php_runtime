@@ -1,0 +1,5 @@
+---
+
+# mysql passwords will be set during runtime when deploying to production/staging (remote hosts)
+mysql_root_password:
+mysql_user_password:
